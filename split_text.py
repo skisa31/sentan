@@ -52,7 +52,7 @@ for file_name in files:
             # print(''.join(li3[num[i-1]+1:num[i]+1]))
 
     ele = []
-    for index, element in enumerate(li3):
+    for index, element in enumerate(txt):
         if index in a or "。" in element:
             ele.append(element)
         else:
@@ -60,20 +60,18 @@ for file_name in files:
 
     # print(txt)
 
-    """
     for i in range(len(num)):
-        if "<" in txt[i]:
-            b = txt[i]
-            txt[i] = b.split("<")[0]
-    """
+        if "<" in ele[i]:
+            b = ele[i]
+            ele[i] = b.split("<")[0]
 
     create_file_path = './splited_text/splited_text_' + str(z) + '.txt'
     with open(create_file_path, 'w', encoding='utf-8') as f:
 
-        for j in range(len(txt)):
+        for j in range(len(ele)):
             # print(txt[j])
-            print(txt[j], file=f)
-            if "。" in txt[j]:
+            print(ele[j], file=f)
+            if "。" in ele[j]:
                 # print("\n")
                 print('\n', file=f)
 
