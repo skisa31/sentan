@@ -64,8 +64,10 @@ for file_name in files:
         if "<" in ele[i]:
             b = ele[i]
             ele[i] = b.split("<")[0]
+            ele[i] = b.replace("(P)", "")
         else:
-            pass
+            b = ele[i]
+            ele[i] = b.replace("(P)", "")
 
     if z < 10:
         create_file_path = './splited_text/splited_text_0' + str(z) + '.txt'
