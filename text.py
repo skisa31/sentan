@@ -20,6 +20,7 @@ for file_name in files:
     for ind, ele in enumerate(li):
         if "(P)" in ele and "用言" in ele:
             a.append(ind)
+            ele + "*"
         else:
             pass
 
@@ -32,7 +33,7 @@ for file_name in files:
 
     li3 = []
     for index, element in enumerate(li2):
-        if index in a:
+        if "(P)" in element or "。" in element:
             li3.append(element)
             num.append(index)
         else:
@@ -64,6 +65,9 @@ for file_name in files:
         if "<" in ele[i]:
             b = ele[i]
             ele[i] = b.split("<")[0]
+        elif "(P)" in ele[i]:
+            b = ele[i]
+            ele[i] = b.split("(")[0]
         else:
             pass
 
