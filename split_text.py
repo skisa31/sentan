@@ -17,16 +17,27 @@ for file_name in files:
         e = line.split("\n")
         li.append(e[0])
 
-    for ind, ele in enumerate(li):
-        if "(P)" in ele and "用言" in ele:
-            a.append(ind)
+    # （P)と用言が含まれる行番号をnumPに記録
+    for numP, ele in enumerate(li):
+        if "(P)" in ele and "用言" in ele or "。" in ele:
+            a.append(numP)
         else:
             pass
 
-    for x in range(len(li)):
-        ex = li[x].strip()
-        g = ex.split("─")
-        li2.append(g[0])
+    print(a)
+
+    # 空白と─を削除してli2に入れる
+    for index, element in enumerate(li):
+        el = li[index].strip()
+        splited_el = el.split("─")
+        li2.append(splited_el[0])
+        """
+        if index in a:
+            li2.append(splited_el[0])
+            num.append(index)
+        else:
+            li2.append(splited_el[0])
+        """
 
     # print(li2)
 
@@ -38,18 +49,22 @@ for file_name in files:
         else:
             li3.append(element)
 
-    # print(a)
+    print(li3)
 
-    for i in range(len(num)):
-        if i == 0:
-            txt.append("".join(li3[:num[i]+1]))
-            # print(''.join(li3[:num[i]+1]))
-        elif i == num[-1]:
-            txt.append("".join(li3[num[i]:]))
-            # print(''.join(li3[num[i]:]))
-        else:
-            txt.append("".join(li3[num[i-1]+1:num[i]+1]))
-            # print(''.join(li3[num[i-1]+1:num[i]+1]))
+    if not num:
+        txt.append("".join(li3[0:len(li3)]))
+    else:
+        for i in range(len(num)):
+            if i == 0:
+                txt.append("".join(li3[:num[i]+1]))
+                print(''.join(li3[:num[i]+1]))
+            elif i == num[-1]:
+                txt.append("".join(li3[num[i]:len(li3)]))
+                print(''.join(li3[num[i]:len(li3)]))
+            else:
+                txt.append("".join(li3[num[i-1]+1:num[i]+1]))
+                print(''.join(li3[num[i-1]+1:num[i]+1]))
+
 
     ele = []
     for index, element in enumerate(txt):
@@ -60,14 +75,28 @@ for file_name in files:
 
     # print(txt)
 
-    for i in range(len(num)):
-        if "<" in ele[i]:
-            b = ele[i]
-            ele[i] = b.split("<")[0]
-            ele[i] = b.replace("(P)", "")
-        else:
-            b = ele[i]
-            ele[i] = b.replace("(P)", "")
+    if not num:
+        if "<" in ele[0]:
+            b = ele[0]
+            ele[0] = b.replace("(P)", "")
+            c = ele[0]
+            ele[0] = c.split("<")[0]
+    else:
+        for i in range(len(num)):
+            if "<用言" in ele[i] or "<体言" in ele[i]:
+                b = ele[i]
+                ele[i] = b.replace("(P)", "")
+                c = ele[i]
+                ele[i] = c.replace("-PARA", "")
+                d = ele[i]
+                ele[i] = d.split("<")[0]
+            else:
+                b = ele[i]
+                ele[i] = b.replace("-PARA", "")
+                c = ele[i]
+                ele[i] = c.replace("(P)", "")
+                d = ele[i]
+                ele[i] = d.replace("<I>", "")
 
     if z < 10:
         create_file_path = './splited_text/splited_text_0' + str(z) + '.txt'
