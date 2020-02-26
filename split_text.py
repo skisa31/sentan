@@ -51,6 +51,7 @@ for file_name in files:
 
     print(li3)
 
+    # （P)と用言がない文章を結合
     if not num:
         txt.append("".join(li3[0:len(li3)]))
     else:
@@ -75,6 +76,7 @@ for file_name in files:
 
     # print(txt)
 
+    # 最後の<～>を削除
     if not num:
         if "<" in ele[0]:
             b = ele[0]
